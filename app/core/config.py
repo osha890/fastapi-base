@@ -7,6 +7,22 @@ class RunConfig(BaseModel):
     port: int = 8000
 
 
+class DatabaseConfig(BaseModel):
+    name: str
+    user: str
+    password: str
+    host: str = "0.0.0.0"
+    port: int = 5432
+    echo: bool = True
+    echo_pool: bool = True
+    pool_size: int = 5
+    max_overflow: int = 10
+
+    @property
+    def url(self):
+        return f"postgresql+asyncpg://{self.user}:{self.password}@{self.host}:{self.port}/{self.name}"
+
+
 class ApiPrefix(BaseModel):
     prefix: str = "/api"
 
@@ -19,6 +35,7 @@ class Settings(BaseSettings):
     )
     run: RunConfig = RunConfig()
     api: ApiPrefix = ApiPrefix()
+    db: DatabaseConfig
 
 
 settings = Settings()
