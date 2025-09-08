@@ -1,9 +1,22 @@
+from contextlib import asynccontextmanager
+
 import uvicorn
 from fastapi import FastAPI
 
 from core.config import settings
+from core.db_helper import db_helper
 
-main_app = FastAPI()
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    await db_helper.test_connection()
+    yield
+    await db_helper.dispose()
+
+
+main_app = FastAPI(
+    lifespan=lifespan,
+)
 
 
 if __name__ == "__main__":
