@@ -78,24 +78,48 @@ pre-commit run --all-files
 
 ## Poetry Usage
 
-1. Install dependencies:
+1. Rename the project
+- Open `pyproject.toml` and change the project name:
+```toml
+[project]
+name = "new-project-name"
+```
 
+2. Remove old virtual environment (if it exists):
+```bash
+poetry env remove python
+```
+
+3. Disable keyring (to avoid errors on Linux):
+- For current terminal session:
+```bash
+export PYTHON_KEYRING_BACKEND=keyring.backends.null.Keyring
+```
+- Or permanently for the project:
+```bash
+poetry config keyring.disable true --local
+```
+
+4. Install dependencies
+
+- To create a new virtual environment and install dependencies:
 ```bash
 poetry install
 ```
 
-2. Add a new package:
+5. Add a new package:
 
 ```bash
 poetry add <package_name>
 ```
 
-3. Remove a package
+6. Remove a package:
 
-```bash
-poetry remove <package_name>
-```
-
+    ```bash
+    poetry remove <package_name>
+    ```
+   
+## Git
 ---
 
 Follow these steps for a smooth development workflow.
