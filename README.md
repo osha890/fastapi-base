@@ -1,5 +1,63 @@
 # Project Setup and Development Guide
 
+## Git
+```bash
+mkdir new-project-name
+```
+```bash
+cd new-project-name
+```
+```bash
+git clone git@github.com:osha890/fastapi-base.git .
+```
+```bash
+git remote remove origin
+```
+
+## Poetry Usage
+
+1. Rename the project
+- Open `pyproject.toml` and change the project name:
+```toml
+[project]
+name = "new-project-name"
+```
+
+2. Remove old virtual environment (if it exists):
+```bash
+poetry env remove python
+```
+
+3. Disable keyring (to avoid errors on Linux):
+- For current terminal session:
+```bash
+export PYTHON_KEYRING_BACKEND=keyring.backends.null.Keyring
+```
+- Or permanently for the project:
+```bash
+poetry config keyring.disable true --local
+```
+
+4. Install dependencies
+
+- To create a new virtual environment and install dependencies:
+```bash
+poetry install
+```
+
+5. Add a new package:
+
+```bash
+poetry add <package_name>
+```
+
+6. Remove a package:
+
+```bash
+poetry remove <package_name>
+```
+
+
 ## Environment
 
 1. Create a `.env` file using `.env.template` as a reference.
@@ -76,50 +134,6 @@ alembic downgrade base
 pre-commit run --all-files
 ```
 
-## Poetry Usage
-
-1. Rename the project
-- Open `pyproject.toml` and change the project name:
-```toml
-[project]
-name = "new-project-name"
-```
-
-2. Remove old virtual environment (if it exists):
-```bash
-poetry env remove python
-```
-
-3. Disable keyring (to avoid errors on Linux):
-- For current terminal session:
-```bash
-export PYTHON_KEYRING_BACKEND=keyring.backends.null.Keyring
-```
-- Or permanently for the project:
-```bash
-poetry config keyring.disable true --local
-```
-
-4. Install dependencies
-
-- To create a new virtual environment and install dependencies:
-```bash
-poetry install
-```
-
-5. Add a new package:
-
-```bash
-poetry add <package_name>
-```
-
-6. Remove a package:
-
-    ```bash
-    poetry remove <package_name>
-    ```
-   
-## Git
 ---
 
 Follow these steps for a smooth development workflow.
