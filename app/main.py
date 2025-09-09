@@ -4,6 +4,7 @@ import uvicorn
 from fastapi import FastAPI
 from loguru import logger
 
+from api import router as api_router
 from core.config import settings
 from core.db_helper import db_helper
 
@@ -20,6 +21,8 @@ async def lifespan(app: FastAPI):
 main_app = FastAPI(
     lifespan=lifespan,
 )
+
+main_app.include_router(api_router)
 
 
 if __name__ == "__main__":
