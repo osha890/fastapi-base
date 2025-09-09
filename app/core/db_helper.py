@@ -1,5 +1,6 @@
 from typing import AsyncGenerator
 
+from loguru import logger
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import (
     AsyncEngine,
@@ -41,13 +42,16 @@ class DatabaseHelper:
         async with self.session_factory() as session:
             yield session
 
-    async def test_connection(self):
+    async def test_connection(self) -> bool:
         try:
             async with self.engine.connect() as conn:
                 result = await conn.execute(text("SELECT 1"))
-                print("Connection successful, result:", result.scalar())
+                value = result.scalar()
+                logger.info("Connection successful, result: {}", value)
+                return True
         except Exception as e:
-            print("Connection failed:", e)
+            logger.exception("Connection failed: {}", e)
+            return False
 
 
 db_helper = DatabaseHelper()
