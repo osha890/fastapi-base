@@ -36,4 +36,4 @@ pre-commit = "^4.3.0"
 
 [tool.isort]
 profile = "black"
-known_first_party = ["core", "utils", "api"]
+known_first_party = ["api", "core", "db", "schemas", "utils"]
