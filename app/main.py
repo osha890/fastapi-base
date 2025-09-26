@@ -1,12 +1,12 @@
 from contextlib import asynccontextmanager
 
 import uvicorn
+from db.db_helper import db_helper
 from fastapi import FastAPI
 from loguru import logger
 
 from api import router as api_router
 from core.config import settings
-from core.db_helper import db_helper
 
 
 @asynccontextmanager
